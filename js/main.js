@@ -3,7 +3,7 @@ class Player {
     this.positionX = 50;
     this.positionY = 0;
     this.width = 20;
-    this.height = 20;
+    this.height = 10;
 
     this.domElement = null; // we will store a ref. to the dom element of the player
 
@@ -27,11 +27,11 @@ class Player {
   }
 
   moveLeft() {
-    this.positionX = this.positionX -4; //modify the position
+    this.positionX--; //modify the position
     this.domElement.style.left = this.positionX + "vw"; //reflect change in the css
   }
   moveRight() {
-    this.positionX = this.positionX +4; //modify the position
+    this.positionX++; //modify the position
     this.domElement.style.left = this.positionX + "vw"; //reflect change in the css
   }
 }
@@ -81,6 +81,16 @@ setInterval(() => {
 setInterval(() => {
   obstaclesArr.forEach((obstacleInstance) => {
     obstacleInstance.moveDown();
+
+    if (
+      obstacleInstance.positionX < player.positionX + player.width &&
+      obstacleInstance.positionX + obstacleInstance.width > player.positionX &&
+      obstacleInstance.positionY < player.positionY + player.height &&
+      obstacleInstance.height + obstacleInstance.positionY > player.positionY
+    ) {
+      console.log("game over my fren");
+      location.href = "./gameover.html";
+    }
   });
 }, 60);
 
