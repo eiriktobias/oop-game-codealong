@@ -1,9 +1,9 @@
 class Player {
   constructor() {
-    this.positionX = 50;
-    this.positionY = 0;
     this.width = 20;
     this.height = 10;
+    this.positionX = 50 - this.width / 2;
+    this.positionY = 0;
 
     this.domElement = null; // we will store a ref. to the dom element of the player
 
@@ -27,21 +27,21 @@ class Player {
   }
 
   moveLeft() {
-    this.positionX--; //modify the position
+    this.positionX = this.positionX - 4; //modify the position
     this.domElement.style.left = this.positionX + "vw"; //reflect change in the css
   }
   moveRight() {
-    this.positionX++; //modify the position
+    this.positionX = this.positionX + 4; //modify the position
     this.domElement.style.left = this.positionX + "vw"; //reflect change in the css
   }
 }
 
 class Obstacle {
   constructor() {
-    this.positionX = 50;
-    this.positionY = 100;
-    this.width = 20;
+    this.width = 10;
     this.height = 10;
+    this.positionX = 50 - this.width / 2;
+    this.positionY = 100;
 
     this.domElement = null;
 
@@ -77,11 +77,13 @@ setInterval(() => {
   obstaclesArr.push(newObstacle);
 }, 4000);
 
-// Move all obstacles
+// Update obstacles
 setInterval(() => {
   obstaclesArr.forEach((obstacleInstance) => {
+    // Move current obstacle
     obstacleInstance.moveDown();
 
+    // Detect collision
     if (
       obstacleInstance.positionX < player.positionX + player.width &&
       obstacleInstance.positionX + obstacleInstance.width > player.positionX &&
@@ -90,6 +92,15 @@ setInterval(() => {
     ) {
       console.log("game over my fren");
       location.href = "./gameover.html";
+    }
+
+    // Detect if obstacle needs to be removed
+    if (obstacleInstance.positionY < 0 - obstacleInstance.height) {
+      //1. remove elm from the dom
+      obstacleInstance.domElement.remove();
+
+      //2. remove from the array of obstacles
+      obstaclesArr.shift(); //remove from the array
     }
   });
 }, 60);

@@ -1,20 +1,20 @@
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 #board {
-    background-color: rgb(219, 234, 239);
-    height: 100vh;
-    position: relative;
+  background-color: rgb(219, 234, 239);
+  height: 100vh;
+  position: relative;
 }
 
 #player {
-    background-color: rgb(255, 0, 166);
-    position: absolute;
+  background-color: rgb(255, 0, 166);
+  position: absolute;
 }
 
 .obstacle {
-    background-color: rgb(90, 19, 156);
-    position: absolute;
+  background-color: rgb(90, 19, 156);
+  position: absolute;
 }
